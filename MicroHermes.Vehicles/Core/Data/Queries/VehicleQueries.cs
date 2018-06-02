@@ -11,21 +11,21 @@ namespace MicroHermes.Vehicles.Core.Data.Queries
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IList<VehicleEntity> _vehicles;
-        
+
         public VehicleQueries(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
-            
+
             var contentRootPath = _hostingEnvironment.ContentRootPath;
             var jsonString = File.ReadAllText(contentRootPath + "/vehicles.json");
 
             _vehicles = JsonConvert.DeserializeObject<List<VehicleEntity>>(jsonString);
 
         }
-        
+
         public VehicleEntity GetVehicleByVin(string vin)
         {
-            return _vehicles.FirstOrDefault(x=>x.FullVin.Equals(vin));
+            return _vehicles.FirstOrDefault(x => x.FullVin.Equals(vin));
         }
 
     }

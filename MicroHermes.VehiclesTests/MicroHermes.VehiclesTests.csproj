@@ -20,4 +20,10 @@
   <ItemGroup>
     <Folder Include="Validators\EntityValidators" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\MicroHermes.Vehicles\vehicles.json">
+      <Link>vehicles.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
