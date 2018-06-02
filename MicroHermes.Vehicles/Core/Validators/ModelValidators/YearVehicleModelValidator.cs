@@ -9,7 +9,7 @@ namespace MicroHermes.Vehicles.Core.Validators.ModelValidators
         
         public bool Validate(VehicleModel model)
         {
-            var isValid = model.Year < 0 && model.Year > DateTime.UtcNow.Year;
+            var isValid = model.Year > 0 && model.Year < DateTime.UtcNow.Year + 1;
             
             //TODO: add some logging and insightful response msg back
             
