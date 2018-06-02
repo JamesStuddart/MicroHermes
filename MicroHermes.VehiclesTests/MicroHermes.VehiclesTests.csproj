@@ -17,4 +17,7 @@
       <Name>MicroHermes.Vehicles</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validators\EntityValidators" />
+  </ItemGroup>
 </Project>

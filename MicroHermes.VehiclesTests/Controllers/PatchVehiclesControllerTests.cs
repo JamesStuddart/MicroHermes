@@ -51,7 +51,6 @@ namespace MicroHermes.VehiclesTests.Controllers
             PartialVin = "JM1CW2BLE0"
         };
 
-
         [Fact]
         public void SDHP_PartialUpdate()
         {
