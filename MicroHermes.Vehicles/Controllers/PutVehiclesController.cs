@@ -8,6 +8,7 @@ using MicroHermes.Vehicles.Core.Data.Queries;
 using MicroHermes.Vehicles.Core.Mappers;
 using MicroHermes.Vehicles.Core.Models;
 using MicroHermes.Vehicles.Core.Validators;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroHermes.Vehicles.Controllers
@@ -32,6 +33,10 @@ namespace MicroHermes.Vehicles.Controllers
         [HttpPut("{vin}"), ActionName("vehicle.update.full")]
         public IActionResult UpdateVehicle([FromRoute] string vin, [FromBody] VehicleModel model)
         {
+            //TODO: add guard pattern here for this check
+            if (string.IsNullOrWhiteSpace(vin) || vin.Length != 17)
+                return BadRequest(vin); 
+            
             //TODO: replace with Guard
             if (model == null)
                 return NoContent();
@@ -50,7 +55,7 @@ namespace MicroHermes.Vehicles.Controllers
 
             //TODO: replace this with an inteligent way of doing it - JS 29/05/218
             var apiUri = Request.GetBaseUri() + Request?.Path.Value;
-            
+           
             var links = new List<HateoasLink>
             {
                 new HateoasLink("vehicle.update.partial", $"{apiUri}", HttpVerbs.Patch),

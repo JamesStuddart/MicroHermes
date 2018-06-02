@@ -52,7 +52,7 @@ namespace MicroHermes.VehiclesTests.Controllers
         };
 
         [Fact]
-        public void SDHP_PartialUpdate()
+        public void SDHP_PartialUpdateVehicle()
         {
             //Arrange
             var vin = "JM1CW2BLE0I106097";
@@ -86,5 +86,105 @@ namespace MicroHermes.VehiclesTests.Controllers
             getLink.Rel.ShouldNotBeEmpty();
             getLink.Rel.ShouldEqual("vehicle.get");
         }
+
+        [Fact]
+        public void Fail_PartialUpdateVehicle_ModelIsNull()
+        {
+            //Arrange
+            var vin = "JM1CW2BLE0I106097";
+
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, null) as NoContentResult;
+            
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.NoContent);
+        }
+
+        [Fact]
+        public void Fail_PartialUpdateVehicle_ModelIsInvalid()
+        {
+            //Arrange
+            var vin = "JM1CW2BLE0I106097";
+            _vehicleModelValidation.Setup(x => x.Validate(It.IsAny<VehicleModel>())).Returns(false);
+            
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, ValidModel) as BadRequestResult;
+            
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public void Fail_PartialUpdateVehicle_EntityUpdateFailed()
+        {
+            //Arrange
+            var vin = "JM1CW2BLE0I106097";
+            _vehicleModelValidation.Setup(x => x.Validate(It.IsAny<VehicleModel>())).Returns(true);
+            _vehicleQueries.Setup(x => x.GetVehicleByVin(It.IsAny<string>())).Returns(ValidEntity);
+            _vehicleCommands.Setup(x => x.UpdateVehicle(It.IsAny<VehicleEntity>())).Returns(false);
+            
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, ValidModel) as BadRequestResult;
+            
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+        }
+        
+        
+        [Fact]
+        public void Fail_PartialUpdateVehicle_InvalidVin_Too_Long()
+        {
+            //Arrange
+            var vin = "JM1CW2BLE0I106097SDJDFKSHD8ND8W09HPI";
+            
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, ValidModel) as BadRequestObjectResult;
+
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldNotEqual(null);
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
+
+        }
+        
+        [Fact]
+        public void Fail_PartialUpdateVehicle_InvalidVin_Too_Short()
+        {
+            //Arrange
+            var vin = "J";
+            
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, ValidModel) as BadRequestObjectResult;
+
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldNotEqual(null);
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
+
+        }
+        
+        [Fact]
+        public void Fail_PartialUpdateVehicle_InvalidVin_Null()
+        {
+            //Arrange
+            string vin = null;
+            
+            _vehicleQueries.Setup(x => x.GetVehicleByVin(It.IsAny<string>())).Returns((VehicleEntity)null);
+            
+            //Act
+            var result = _controller.PartialUpdateVehicle(vin, ValidModel) as BadRequestObjectResult;
+
+            //Assert
+            result.ShouldNotBeNull();
+            result.StatusCode.ShouldNotEqual(null);
+            result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
+        }
+        
     }
 }

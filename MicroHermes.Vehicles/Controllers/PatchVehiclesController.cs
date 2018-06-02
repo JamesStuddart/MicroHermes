@@ -31,6 +31,10 @@ namespace MicroHermes.Vehicles.Controllers
         [HttpPatch("{vin}"), ActionName("vehicle.update.partial")]
         public IActionResult PartialUpdateVehicle([FromRoute] string vin, [FromBody] VehicleModel model)
         {
+            //TODO: add guard pattern here for this check
+            if (string.IsNullOrWhiteSpace(vin) || vin.Length != 17)
+                return BadRequest(vin); 
+            
             //TODO: replace with Guard
             if (model == null)
                 return NoContent();
