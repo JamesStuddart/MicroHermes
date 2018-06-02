@@ -49,13 +49,12 @@ namespace MicroHermes.Vehicles.Controllers
                 return BadRequest(); 
 
             //TODO: replace this with an inteligent way of doing it - JS 29/05/218
-            var apiBaseUri = Request.GetBaseUri();
-            var modelBaseUri = Request.Path.Value.Replace(vin, model.Vin);
+            var apiUri = Request.GetBaseUri() + Request?.Path.Value;
             
             var links = new List<HateoasLink>
             {
-                new HateoasLink("vehicle.update.partial", $"{apiBaseUri}{modelBaseUri}", HttpVerbs.Patch),
-                new HateoasLink("vehicle.get", $"{apiBaseUri}{modelBaseUri}", HttpVerbs.Get),
+                new HateoasLink("vehicle.update.partial", $"{apiUri}", HttpVerbs.Patch),
+                new HateoasLink("vehicle.get", $"{apiUri}", HttpVerbs.Get),
 
             };
             

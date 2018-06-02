@@ -2,7 +2,7 @@
 {
     public class HateoasLink
     {
-        public HateoasLink(string hypertextReference, string relationship, string verb)
+        public HateoasLink(string relationship, string hypertextReference, string verb)
         {
             Rel = relationship;
             Href = hypertextReference;

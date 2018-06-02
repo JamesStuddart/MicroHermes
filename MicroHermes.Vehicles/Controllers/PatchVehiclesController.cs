@@ -35,7 +35,7 @@ namespace MicroHermes.Vehicles.Controllers
             if (model == null)
                 return NoContent();
             
-            if (_vehicleModelValidation.Validate(model))
+            if (!_vehicleModelValidation.Validate(model))
                 return BadRequest();
 
             var entity = _vehicleQueries.GetVehicleByVin(model.Vin);
@@ -48,13 +48,12 @@ namespace MicroHermes.Vehicles.Controllers
                 return BadRequest(); 
             
             //TODO: replace this with an inteligent way of doing it - JS 29/05/218
-            var apiBaseUri = Request.GetBaseUri();
-            var modelBaseUri = Request.Path.Value.Replace(vin, model.Vin);
+            var apiUri = Request.GetBaseUri() + Request?.Path.Value;
             
             var links = new List<HateoasLink>
             {
-                new HateoasLink("vehicle.update.full", $"{apiBaseUri}{modelBaseUri}", HttpVerbs.Put),
-                new HateoasLink("vehicle.get", $"{apiBaseUri}{modelBaseUri}", HttpVerbs.Get),
+                new HateoasLink("vehicle.update.full", $"{apiUri}", HttpVerbs.Put),
+                new HateoasLink("vehicle.get", $"{apiUri}", HttpVerbs.Get),
             };
 
             var response = new HateoasResponseObject<VehicleModel>(model, links);
