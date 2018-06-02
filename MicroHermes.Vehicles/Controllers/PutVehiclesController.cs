@@ -36,7 +36,7 @@ namespace MicroHermes.Vehicles.Controllers
             if (model == null)
                 return NoContent();
             
-            if (_vehicleModelValidation.Validate(model))
+            if (!_vehicleModelValidation.Validate(model))
                 return BadRequest();
 
             var entity = _vehicleQueries.GetVehicleByVin(model.Vin);

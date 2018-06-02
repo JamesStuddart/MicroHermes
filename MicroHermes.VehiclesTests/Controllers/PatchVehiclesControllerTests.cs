@@ -85,8 +85,7 @@ namespace MicroHermes.VehiclesTests.Controllers
             var getLink = response.Links.First(x => x.Type.Equals(HttpVerbs.Get));
             getLink.Rel.ShouldNotBeNull();
             getLink.Rel.ShouldNotBeEmpty();
-            getLink.Rel.ShouldEqual("vehicle.update.full");
-
+            getLink.Rel.ShouldEqual("vehicle.get");
         }
     }
 }
