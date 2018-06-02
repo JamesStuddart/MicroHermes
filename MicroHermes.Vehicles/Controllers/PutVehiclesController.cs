@@ -14,14 +14,14 @@ namespace MicroHermes.Vehicles.Controllers
 {
     [Produces("application/json")]
     [Route("api/vehicles")]
-    public class UpdateVehiclesController : Controller
+    public class PutVehiclesController : Controller
     {
         private readonly IVehicleCommands _vehicleCommands;
         private readonly IVehicleQueries _vehicleQueries;
         private readonly IVehicleModelValidation _vehicleModelValidation;
         private readonly IVehicleModelMapper _vehicleModelMapper;
         
-        public UpdateVehiclesController(IVehicleCommands vehicleCommands, IVehicleQueries vehicleQueries, IVehicleEntityMapper entityMapper, IVehicleModelValidation vehicleModelValidation, IVehicleModelMapper vehicleModelMapper)
+        public PutVehiclesController(IVehicleCommands vehicleCommands, IVehicleQueries vehicleQueries, IVehicleEntityMapper entityMapper, IVehicleModelValidation vehicleModelValidation, IVehicleModelMapper vehicleModelMapper)
         {
             _vehicleCommands = vehicleCommands;
             _vehicleQueries = vehicleQueries;
