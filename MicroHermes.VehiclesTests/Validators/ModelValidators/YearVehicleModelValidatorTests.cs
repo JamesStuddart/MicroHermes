@@ -1,4 +1,5 @@
 ﻿using System;
+using MicroHermes.Vehicles.Core;
 using MicroHermes.Vehicles.Core.Models;
 using MicroHermes.Vehicles.Core.Validators.ModelValidators;
 using Should;
@@ -30,6 +31,7 @@ namespace MicroHermes.VehiclesTests.Validators.ModelValidators
             
             //Assert
             result.ShouldBeTrue();
+            _vehicleModelValidator.GetType().ShouldEqual(VehicleValidatorType.Year);
         }
         
         [Fact]

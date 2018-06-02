@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MicroHermes.Vehicles.Core;
 using MicroHermes.Vehicles.Core.Models;
 using MicroHermes.Vehicles.Core.Validators;
 using MicroHermes.Vehicles.Core.Validators.ModelValidators;
@@ -34,6 +35,7 @@ namespace MicroHermes.VehiclesTests.Validators
         {
             //Arrange
             _vehicleModelValidator.Setup(x => x.Validate(It.IsAny<VehicleModel>())).Returns(true);
+            _vehicleModelValidator.Setup(x => x.GetType()).Returns(VehicleValidatorType.Vin);
 
             //Act
             var result = _vehicleModelValidation.Validate(ValidVehicleModel);
@@ -41,11 +43,13 @@ namespace MicroHermes.VehiclesTests.Validators
             //Assert
             result.ShouldBeTrue();
         }
+        
         [Fact]
         public void Fail_Validate()
         {
             //Arrange
             _vehicleModelValidator.Setup(x => x.Validate(It.IsAny<VehicleModel>())).Returns(false);
+            _vehicleModelValidator.Setup(x => x.GetType()).Returns(VehicleValidatorType.Vin);
 
             //Act
             var result = _vehicleModelValidation.Validate(ValidVehicleModel);
