@@ -131,7 +131,6 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
         }
         
-        
         [Fact]
         public void Fail_UpdateVehicle_InvalidVin_Too_Long()
         {
@@ -146,7 +145,6 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.StatusCode.ShouldNotEqual(null);
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
             result.Value.ShouldEqual(vin);
-
         }
         
         [Fact]
@@ -163,7 +161,6 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.StatusCode.ShouldNotEqual(null);
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
             result.Value.ShouldEqual(vin);
-
         }
         
         [Fact]

@@ -2,6 +2,7 @@
 {
     public enum VehicleValidatorType
     {
-        Vin = 100
+        Vin,
+        Year
     }
 }

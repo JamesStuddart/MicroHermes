@@ -9,6 +9,7 @@ using MicroHermes.Vehicles.Core.Data.Commands;
 using MicroHermes.Vehicles.Core.Data.Queries;
 using MicroHermes.Vehicles.Core.Mappers;
 using MicroHermes.Vehicles.Core.Models;
+using MicroHermes.Vehicles.Core.Validators;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,6 @@ namespace MicroHermes.Vehicles.Controllers
     {
         private readonly IVehicleCommands _vehicleCommands;
         private readonly IVehicleQueries _vehicleQueries;
-
         private readonly IVehicleEntityMapper _entityMapper;
         
         public GetVehiclesController(IVehicleCommands vehicleCommands, IVehicleQueries vehicleQueries, IVehicleEntityMapper entityMapper)
@@ -44,7 +44,7 @@ namespace MicroHermes.Vehicles.Controllers
                 return NotFound(vin);
 
             var model = _entityMapper.ToVehicleModel(entity);
-
+           
             //TODO: replace this with an inteligent way of doing it - JS 29/05/218
             var apiUri = Request.GetBaseUri() + Request?.Path.Value;
             

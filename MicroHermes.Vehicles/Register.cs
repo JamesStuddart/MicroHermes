@@ -1,4 +1,5 @@
-﻿using MicroHermes.Core.Data.Queries;
+﻿using System.Collections.Generic;
+using MicroHermes.Core.Data.Queries;
 using MicroHermes.Core.Logging;
 using MicroHermes.Vehicles.Core.Data.Commands;
 using MicroHermes.Vehicles.Core.Data.Queries;
@@ -18,6 +19,8 @@ namespace MicroHermes.Vehicles
 
             //transient (per use)
             services.AddTransient<IVehicleModelValidator, VinVehicleModelValidator>();
+            services.AddTransient<IVehicleModelValidator, YearVehicleModelValidator>();
+            
             services.AddTransient<IVehicleModelValidation, VehicleModelValidation>();
 
             //singleton (there can only be one)

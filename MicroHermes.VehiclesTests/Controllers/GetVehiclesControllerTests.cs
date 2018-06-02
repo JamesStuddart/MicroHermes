@@ -1,9 +1,6 @@
 using System.Net;
-using System.Runtime.InteropServices;
-using MicroHermes.Core.Data.Queries;
 using MicroHermes.Core.Models;
 using MicroHermes.Vehicles.Controllers;
-using MicroHermes.Vehicles.Core.Data;
 using MicroHermes.Vehicles.Core.Data.Commands;
 using MicroHermes.Vehicles.Core.Data.Queries;
 using MicroHermes.Vehicles.Core.Entities;
@@ -22,7 +19,7 @@ namespace MicroHermes.VehiclesTests.Controllers
         private readonly Mock<IVehicleQueries> _vehicleQueries;
         private readonly Mock<IVehicleCommands> _vehicleCommands;
         private readonly Mock<IVehicleEntityMapper> _vehicleEntityMapper;
-
+        
         public VehiclesControllerTests()
         {
             _vehicleQueries = new Mock<IVehicleQueries>();
@@ -34,8 +31,8 @@ namespace MicroHermes.VehiclesTests.Controllers
 
         #region Setup
 
-        private VehicleModel SDHP_VehicleModel => new VehicleModel { Vin = "JM1CW2BLE0I106097"};
-        private VehicleEntity SDHP_VehicleEntity => new VehicleEntity {FullVin = "JM1CW2BLE0I106097"};
+        private VehicleModel ValidVehicleModel => new VehicleModel { Vin = "JM1CW2BLE0I106097"};
+        private VehicleEntity ValidVehicleEntity => new VehicleEntity {FullVin = "JM1CW2BLE0I106097"};
 
         #endregion Setup
 
@@ -46,8 +43,8 @@ namespace MicroHermes.VehiclesTests.Controllers
             //Arrange
             var vin = "JM1CW2BLE0I106097";
 
-            _vehicleQueries.Setup(x => x.GetVehicleByVin(It.IsAny<string>())).Returns(SDHP_VehicleEntity);
-            _vehicleEntityMapper.Setup(x => x.ToVehicleModel(It.IsAny<VehicleEntity>())).Returns(SDHP_VehicleModel);
+            _vehicleQueries.Setup(x => x.GetVehicleByVin(It.IsAny<string>())).Returns(ValidVehicleEntity);
+            _vehicleEntityMapper.Setup(x => x.ToVehicleModel(It.IsAny<VehicleEntity>())).Returns(ValidVehicleModel);
             
             //Act
             var result = _controller.GetVehicle(vin) as OkObjectResult;
@@ -91,6 +88,7 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.ShouldNotBeNull();
             result.StatusCode.ShouldNotEqual(null);
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
         }
         
         [Fact]
@@ -108,6 +106,7 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.ShouldNotBeNull();
             result.StatusCode.ShouldNotEqual(null);
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
         }
         
         [Fact]
@@ -125,6 +124,7 @@ namespace MicroHermes.VehiclesTests.Controllers
             result.ShouldNotBeNull();
             result.StatusCode.ShouldNotEqual(null);
             result.StatusCode.ShouldEqual((int) HttpStatusCode.BadRequest);
+            result.Value.ShouldEqual(vin);
         }
     }
 }
