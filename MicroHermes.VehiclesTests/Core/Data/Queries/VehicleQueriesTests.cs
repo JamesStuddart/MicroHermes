@@ -6,7 +6,7 @@ using Moq;
 using Should;
 using Xunit;
 
-namespace MicroHermes.VehiclesTests.Data.Queries
+namespace MicroHermes.VehiclesTests.Core.Data.Queries
 {
     public class VehicleQueriesTests
     {

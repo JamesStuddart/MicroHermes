@@ -58,7 +58,7 @@ namespace MicroHermes.Vehicles.Core.Mappers
         private void PartialUpdate(VehicleEntity entity, VehicleModel model)
         {
             entity.FullVin = model.Vin ?? entity.FullVin;
-            entity.PartialVin = model.Vin != null ? model.Vin.Substring(0,9) : entity.PartialVin;
+            entity.PartialVin = model.Vin != null ? model.Vin.Substring(0, 10) : entity.PartialVin;
             entity.YearId = model.Year != null ? _vehicleYearQueries.GetId(model.Year.Value) : entity.YearId;
             entity.MakeId = model.Make != null ? _vehicleMakeQueries.GetId(model.Make) : entity.MakeId;
             entity.ModelId = model.Model != null ? _vehicleModelQueries.GetId(model.Model) : entity.ModelId;
@@ -75,7 +75,7 @@ namespace MicroHermes.Vehicles.Core.Mappers
         private void FullUpdate(VehicleEntity entity, VehicleModel model)
         {
             entity.FullVin = model.Vin;
-            entity.PartialVin = model.Vin.Substring(0,9);
+            entity.PartialVin = model.Vin.Substring(0, 10);
             entity.YearId = _vehicleYearQueries.GetId(model.Year.Value);
             entity.MakeId = _vehicleMakeQueries.GetId(model.Make);
             entity.ModelId = _vehicleModelQueries.GetId(model.Model);

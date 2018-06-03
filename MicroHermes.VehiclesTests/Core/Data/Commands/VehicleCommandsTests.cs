@@ -1,10 +1,9 @@
 ﻿using MicroHermes.Vehicles.Core.Data.Commands;
 using MicroHermes.Vehicles.Core.Entities;
-using Moq;
 using Should;
 using Xunit;
 
-namespace MicroHermes.VehiclesTests.Data.Commands
+namespace MicroHermes.VehiclesTests.Core.Data.Commands
 {
     public class VehicleCommandsTests
     {
