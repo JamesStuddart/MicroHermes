@@ -28,7 +28,7 @@ namespace MicroHermes.Vehicles
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMvc();
         }
     }

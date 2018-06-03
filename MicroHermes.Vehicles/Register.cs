@@ -24,8 +24,6 @@ namespace MicroHermes.Vehicles
             services.AddTransient<IVehicleModelValidation, VehicleModelValidation>();
 
             //singleton (there can only be one)
-            services.AddSingleton<ILogger, ConsoleLogger>();
-            
             services.AddSingleton<IVehicleCommands, VehicleCommands>();
             services.AddSingleton<IVehicleQueries, VehicleQueries>();
             
